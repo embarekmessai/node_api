@@ -8,11 +8,10 @@ router.post("/register", async(req, res) => {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
-        password: req.body.password,
-        //   password: CryptoJS.AES.encrypt(
-        //     req.body.password,
-        //     process.env.PASS_SEC
-        //   ).toString(),
+        password: CryptoJS.AES.encrypt(
+            req.body.password,
+            process.env.PASS_SEC
+        ).toString(),
     });
 
     try {

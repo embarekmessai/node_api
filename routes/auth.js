@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const CryptoJS = require("crypto-js");
+const jwt = require("jsonwebtoken");
 
 const router = require("express").Router();
 
@@ -17,7 +18,8 @@ router.post("/register", async(req, res) => {
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
     } catch (err) {
-        res.status(500).json(err);
+        const status = err.status || 500;
+        res.status(status).json(err);
     }
 });
 
@@ -41,11 +43,18 @@ router.post("/login", async(req, res) => {
 
         const { password, ...others } = user._doc
 
-        res.status(200).json(others);
+        const accessToken = jwt.sign({
+                id: user._id,
+                isAdmin: user.isAdmin,
+            },
+            process.env.JWT_SEC, { expiresIn: "1h" }
+        );
+
+        res.status(200).json({...others, accessToken });
 
     } catch (err) {
-        console.log(err);
-        res.status(500).json(err);
+        const status = err.status || 500;
+        res.status(status).json(err);
     }
 });
 

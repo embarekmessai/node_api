@@ -4,8 +4,8 @@
     "description": "Embarek NodeJs App",
     "main": "app.js",
     "scripts": {
-        "test": "test",
-        "start": "nodemon app.js"
+        "watch": "nodemon app.js",
+        "start": "npm run production"
     },
     "author": "Embarek MESSAI",
     "license": "ISC",
@@ -14,6 +14,7 @@
         "crypto-js": "^4.1.1",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.0.14",
         "nodemon": "^2.0.15"
     }
